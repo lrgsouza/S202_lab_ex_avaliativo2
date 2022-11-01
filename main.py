@@ -1,15 +1,11 @@
-# from pprintpp import pprint as pp
 from db.database import Graph
 from helper.write_a_json import write_a_json as wj
-
-
-
 
 if __name__ == '__main__':
     db = Graph(uri='bolt://44.202.73.42:7687', user='neo4j', password='sentries-blanks-debts')
 
     # inicializando banco
-    with open('./BD.txt',) as bd_init:
+    with open('./BD.txt') as bd_init:
         for line in bd_init:
             n_line = line.replace('\n','')
             db.execute_query(f'{n_line}')
