@@ -1,0 +1,20 @@
+[
+    {
+        "SUBSTRING(t.name, 3, 1)": "c"
+    },
+    {
+        "SUBSTRING(t.name, 3, 1)": "z"
+    },
+    {
+        "SUBSTRING(t.name, 3, 1)": "t"
+    },
+    {
+        "SUBSTRING(t.name, 3, 1)": "n"
+    },
+    {
+        "SUBSTRING(t.name, 3, 1)": "i"
+    },
+    {
+        "SUBSTRING(t.name, 3, 1)": "a"
+    }
+]

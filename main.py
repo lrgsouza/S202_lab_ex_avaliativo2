@@ -2,48 +2,69 @@
 from db.database import Graph
 from helper.write_a_json import write_a_json as wj
 
-db = Graph(uri='BOA SORTE', user='E', password='ÓTIMA PROVA! 😉')
 
-# Questão 01
-# A
 
-# wj(aux, '1A')
 
-# B
+if __name__ == '__main__':
+    db = Graph(uri='bolt://44.202.73.42:7687', user='neo4j', password='sentries-blanks-debts')
 
-#wj(aux, '1B')
+    # ==================================== Questão 01 ====================================
+    # A
+    wj(db.execute_query("MATCH(t:Teacher{name:'Renzo'}) RETURN t.ano_nasc, t.cpf;"),'1A')
 
-# C
+    # B
+    wj(db.execute_query("MATCH(t:Teacher) WHERE t.name STARTS WITH 'M' RETURN t.name, t.cpf;"),'1B')
 
-#wj(aux, '1C')
+    # C
+    wj(db.execute_query("MATCH(c:City) RETURN c.name"),'1C')
 
-# D
+    # D
+    wj(db.execute_query("MATCH(s:School) WHERE s.number >= 150 AND s.number <= 550 RETURN s.name, s.address"),'1D')
 
-#wj(aux, '1D')
+    # ==================================== Questão 02 ====================================
+    # A
+    wj(db.execute_query("MATCH(t:Teacher) return MIN(t.ano_nasc), MAX(t.ano_nasc)"),'2A')
 
-# Questão 02
-# A
+    # B
+    wj(db.execute_query("MATCH(c:City) return AVG(c.population)"),'2B')
 
-#wj(aux, '2A')
+    # C
+    wj(db.execute_query("MATCH(c:City) WHERE c.cep = '37540-000' RETURN REPLACE(c.name, 'a', 'A')"),'2C')
 
-# B
+    # D
+    wj(db.execute_query("MATCH(t:Teacher) RETURN SUBSTRING(t.name, 3, 1)"),'2D')
 
-#wj(aux, '2B')
 
-# C
+    # ==================================== Questão 03 ====================================
 
-#wj(aux, '2C')
+    # A
+    class TeacherCRUD():
 
-# D
+        def __init__(self):
+            self.db = Graph(uri='bolt://44.202.73.42:7687', user='neo4j', password='sentries-blanks-debts')
 
-#wj(aux, '2D')
+        def create(self, name, ano_nasc, cpf):  # cria um Teacher`
+            return wj(self.db.execute_query('CREATE (t:Teacher {name:$name, ano_nasc:$ano_nasc, cpf:$cpf}) return t',
+                                            {'name': name, 'ano_nasc': ano_nasc,
+                                             'cpf': cpf}), 'create')
+        def read(self, name):  # retorna apenas um Teacher`
+            return wj(self.db.execute_query('MATCH (t:Teacher {name:$name}) return t',
+                                            {'name': name}), 'read')
+        def update(self, name, newCpf):  # atualiza cpf com base no name`
+            return wj(self.db.execute_query('MATCH (t:Teacher {name:$name}) SET t.cpf = $cpf RETURN t',
+                                            {'name': name, 'cpf':newCpf}), 'update')
+        def delete(self, name):  # deleta Teacher com base no name`
+            return wj(self.db.execute_query('MATCH (t:Teacher {name:$name}) DELETE t',
+                                            {'name': name}), 'delete')
+    # instanciando objeto
+    TCRUD = TeacherCRUD()
 
-# Questão 03
-# A
+    # B
+    TCRUD.create('Chris Lima',1956,'189.052.396-66')
 
-# B
+    # C
+    TCRUD.read('Chris Lima')
 
-# C
-
-# D
+    # D
+    TCRUD.update('Chris Lima','162.052.777-77')
 
