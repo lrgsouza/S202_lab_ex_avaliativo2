@@ -1,8 +1,5 @@
 [
     {
-        "SUBSTRING(t.name, 3, 1)": "c"
-    },
-    {
         "SUBSTRING(t.name, 3, 1)": "z"
     },
     {
@@ -16,5 +13,8 @@
     },
     {
         "SUBSTRING(t.name, 3, 1)": "a"
+    },
+    {
+        "SUBSTRING(t.name, 3, 1)": "c"
     }
 ]
